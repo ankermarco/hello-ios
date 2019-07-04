@@ -2,7 +2,8 @@
 _A few sentences describing the overall goals of the pull request's commits._
 
 ## JIRA Ticket
-_Related JIRA ticket:_[link]()
+
+_Related JIRA ticket:_ [link]()
 
 ## Related PRs
 _Is there any related PRs?_: [link]()
