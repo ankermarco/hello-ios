@@ -5,12 +5,12 @@ steps:
 - task: Xcode@5
   displayName: 'Build the app using Xcode'
   inputs:
-    actions: 'clean build analyze archive'
+    actions: 'clean build test analyze archive'
     sdk: 'iphoneos'
     scheme: 'HelloiOS'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    useXcpretty: 'false'
+    useXcpretty: 'true'
     args: '-archivePath $(agent.buildDirectory)/HelloiOS'
 
 - task: ArchiveFiles@2
