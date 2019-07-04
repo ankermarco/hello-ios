@@ -3,25 +3,28 @@ pool:
 
 steps:
 - task: Xcode@5
-  displayName: 'Build the app using Xcode'
+  displayName: 'Run unit tests on pr'
   inputs:
-    actions: 'clean build test analyze archive'
+    actions: 'test'
     sdk: 'iphoneos'
     scheme: 'HelloiOS'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    useXcpretty: 'true'
-    args: '-archivePath $(agent.buildDirectory)/HelloiOS'
+    destinationSimulators: 'iPhone 7'
+    destinationTypeOption: 'simulators'
+    destinationPlatformOption: 'iOS'
+    signingOption: "auto"
+    useXcpretty: true
+    publishJUnitResults: 'build/reports/junit.xml'
 
-- task: ArchiveFiles@2
-  displayName: 'Package .xcarchive into a zip file'
+- task: Xcode@5
+  displayName: 'Xcode debug build'
   inputs:
-    rootFolderOrFile: '$(agent.buildDirectory)/HelloiOS.xcarchive/'
-    archiveFile: '$(build.artifactStagingDirectory)/HelloiOS.xcarchive.zip'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)/HelloiOS.xcarchive.zip'
-    artifactName: 'xcarchive-files'
-    artifactType: 'container'
-
+    actions: 'build'
+    scheme: 'HelloiOS'
+    sdk: 'iphoneos'
+    configuration: 'Debug'
+    xcodeVersion: 'default'
+    packageApp: false
+    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+    useXcpretty: true
